@@ -18,8 +18,8 @@ public class TaskController {
     }
 
     @PostMapping
-    public CreateTaskResponse createNewTask(@RequestBody CreateTaskRequest taskRequest) {
-        return taskService.createTask(taskRequest);
+    public CreateTaskResponse createNewTask() {
+        return taskService.createTask();
     }
 
     @GetMapping("/status/{taskId}")
