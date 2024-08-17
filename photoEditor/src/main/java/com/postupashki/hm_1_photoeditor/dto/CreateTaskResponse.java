@@ -1,4 +1,6 @@
 package com.postupashki.hm_1_photoeditor.dto;
 
-public record CreateTaskResponse() {
+import java.util.UUID;
+
+public record CreateTaskResponse(UUID taskId) {
 }
