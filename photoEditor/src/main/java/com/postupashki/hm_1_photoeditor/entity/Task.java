@@ -13,6 +13,11 @@ public class Task {
     public Task() {
     }
 
+    public Task(UUID id, TaskStatusEnum taskStatus) {
+        this.id = id;
+        this.taskStatus = taskStatus;
+    }
+
     public Task(UUID id, TaskStatusEnum taskStatus, BufferedImage originalImage, BufferedImage processedImage, String filterType) {
         this.id = id;
         this.taskStatus = taskStatus;
