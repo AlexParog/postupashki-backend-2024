@@ -8,8 +8,6 @@ import java.util.UUID;
 
 public interface TaskService {
 
-    //createTask();
-
     GetTaskStatusResponse getStatusTaskById(UUID taskId);
 
     TaskDto getTaskResultById(UUID taskId);
