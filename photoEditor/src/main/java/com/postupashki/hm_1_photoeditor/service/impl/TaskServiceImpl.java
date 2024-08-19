@@ -26,17 +26,12 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public CreateTaskResponse createTask() {
-        UUID taskId = UUID.randomUUID();
-        // Создание новой задачи
-        Task newTask = new Task(taskId,
-                TaskStatusEnum.IN_PROGRESS);
-
-        taskRepository.save(newTask);
+        Task task = taskRepository.createTask();
 
         // Имитация обработки задачи (далее будет отдельный ImageProcessor)
-        simulateImageProcessing(newTask);
+        simulateImageProcessing(task);
 
-        return taskMapper.toCreateTaskResponseFromTask(newTask);
+        return taskMapper.toCreateTaskResponseFromTask(task);
     }
 
     @Override
