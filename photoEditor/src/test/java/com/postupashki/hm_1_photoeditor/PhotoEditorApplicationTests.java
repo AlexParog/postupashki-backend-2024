@@ -56,20 +56,14 @@ class PhotoEditorApplicationTests {
         Task task = taskRepository.getTaskById(UUID.fromString(taskId));
         assertNotNull(task, "Task was not found in repository after creation");
 
-        while (true) {
-            MvcResult mvcResultGetTaskStatus = mockMvc.perform(get("/status/{taskId}", taskId))
-                    .andExpect(status().isOk())
-                    .andDo(print())
-                    .andReturn();
+        MvcResult mvcResultGetTaskStatus = mockMvc.perform(get("/status/{taskId}", taskId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.taskStatusEnum").exists())
+                .andDo(print())
+                .andReturn();
 
-            final String taskStatus = JsonPath.read(mvcResultGetTaskStatus.getResponse().getContentAsString(), "$.taskStatusEnum");
-            if ("READY".equals(taskStatus)) {
-                assertEquals(task.getTaskStatus().toString(), taskStatus);
-                break; // Завершение обработки
-            }
-
-            Thread.sleep(1000); // Пауза перед следующей проверкой
-        }
+        final String taskStatus = JsonPath.read(mvcResultGetTaskStatus.getResponse().getContentAsString(), "$.taskStatusEnum");
+        assertEquals(task.getTaskStatus().toString(), taskStatus);
 
         // проверить что result существует и статус в результате READY
         MvcResult mvcResultGetResult = mockMvc.perform(get("/result/{taskId}", taskId))
