@@ -4,6 +4,7 @@ import com.postupashki.hm_1_photoeditor.dto.CreateTaskResponse;
 import com.postupashki.hm_1_photoeditor.dto.GetTaskStatusResponse;
 import com.postupashki.hm_1_photoeditor.dto.TaskDto;
 import com.postupashki.hm_1_photoeditor.service.TaskService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -18,6 +19,7 @@ public class TaskController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public CreateTaskResponse createNewTask() {
         return taskService.createTask();
     }
