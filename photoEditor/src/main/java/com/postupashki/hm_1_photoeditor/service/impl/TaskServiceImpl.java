@@ -9,6 +9,8 @@ import com.postupashki.hm_1_photoeditor.exception.NotFoundException;
 import com.postupashki.hm_1_photoeditor.mapper.TaskMapper;
 import com.postupashki.hm_1_photoeditor.repository.InMemoryTaskRepository;
 import com.postupashki.hm_1_photoeditor.service.TaskService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -16,6 +18,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class TaskServiceImpl implements TaskService {
+
+    private final Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
     private final InMemoryTaskRepository taskRepository;
     private final TaskMapper taskMapper;
 
@@ -56,6 +60,7 @@ public class TaskServiceImpl implements TaskService {
                 // Установка статуса задачи как завершенной
                 task.setTaskStatus(TaskStatusEnum.READY);
                 taskRepository.save(task);
+                logger.info("Task {} saved with status {}", task.getId(), task.getTaskStatus());
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
