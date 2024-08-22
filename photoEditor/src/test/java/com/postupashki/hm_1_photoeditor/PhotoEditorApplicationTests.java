@@ -22,18 +22,37 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Тестовый класс для проверки работы REST API приложения PhotoEditor.
+ * Использует MockMvc для эмуляции HTTP-запросов и проверки ответов.
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 class PhotoEditorApplicationTests {
 
+    /**
+     * Некорректный UUID, используемый для тестов с несуществующими задачами.
+     */
     private final String RANDOM_UUID = "hi-im-wrong-uuid";
 
+    /**
+     * MockMvc, используемый для выполнения HTTP-запросов в тестах.
+     */
     @Autowired
     MockMvc mockMvc;
 
+    /**
+     * Репозиторий задач, используемый для проверки состояния задач в тестах.
+     */
     @Autowired
     InMemoryTaskRepository taskRepository;
 
+    /**
+     * Тест проверяет успешное создание задачи через API.
+     * Выполняется POST-запрос к /task, затем проверяется, что задача была создана и вернулся корректный идентификатор задачи.
+     *
+     * @throws Exception если что-то пошло не так при выполнении запроса.
+     */
     @Test
     public void testTaskSuccessfulCreation() throws Exception {
         MvcResult result = mockMvc.perform(post("/task"))
@@ -45,6 +64,12 @@ class PhotoEditorApplicationTests {
         assertNotNull(taskId);
     }
 
+    /**
+     * Тест проверяет получение статуса и результата задачи.
+     * Сначала создается задача, затем проверяется её статус и результат через соответствующие API-запросы.
+     *
+     * @throws Exception если что-то пошло не так при выполнении запросов.
+     */
     @Test
     public void testGetTaskStatusAndTaskResult() throws Exception {
         // создать задачу
@@ -75,6 +100,12 @@ class PhotoEditorApplicationTests {
         assertEquals(task.getTaskStatus().toString(), resultStatus);
     }
 
+    /**
+     * Тест проверяет обработку запроса на получение статуса задачи с использованием некорректного UUID.
+     * Ожидается, что API вернет ошибку 404 и выбросит исключение NotFoundException.
+     *
+     * @throws Exception если что-то пошло не так при выполнении запроса.
+     */
     @Test
     public void testFindTaskStatusWithRandomUUID() throws Exception {
         mockMvc.perform(
@@ -85,6 +116,12 @@ class PhotoEditorApplicationTests {
                         .equals(NotFoundException.class));
     }
 
+    /**
+     * Тест проверяет обработку запроса на получение результата задачи с использованием некорректного UUID.
+     * Ожидается, что API вернет ошибку 404 и выбросит исключение NotFoundException.
+     *
+     * @throws Exception если что-то пошло не так при выполнении запроса.
+     */
     @Test
     public void testFindTaskResultWithRandomUUID() throws Exception {
         mockMvc.perform(
