@@ -4,6 +4,8 @@ import com.postupashki.hm_1_photoeditor.dto.CreateTaskResponse;
 import com.postupashki.hm_1_photoeditor.dto.GetTaskStatusResponse;
 import com.postupashki.hm_1_photoeditor.dto.TaskDto;
 import com.postupashki.hm_1_photoeditor.service.TaskService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +37,8 @@ public class TaskController {
      *
      * @return ответ с идентификатором созданной задачи.
      */
+    @Operation(summary = "Создание новой задачи")
+    @ApiResponse(responseCode = "201", description = "Задача успешно создана")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CreateTaskResponse createNewTask() {
@@ -47,6 +51,8 @@ public class TaskController {
      * @param taskId идентификатор задачи.
      * @return ответ со статусом задачи.
      */
+    @Operation(summary = "Получение статуса задачи по ID")
+    @ApiResponse(responseCode = "200", description = "Статус задачи успешно получен")
     @GetMapping("/status/{taskId}")
     public GetTaskStatusResponse getStatusTask(@PathVariable UUID taskId) {
         return taskService.getStatusTaskById(taskId);
@@ -58,6 +64,8 @@ public class TaskController {
      * @param taskId идентификатор задачи.
      * @return DTO с данными задачи.
      */
+    @Operation(summary = "Получение результата задачи по ID")
+    @ApiResponse(responseCode = "200", description = "Результат задачи успешно получен")
     @GetMapping("/result/{taskId}")
     public TaskDto getTaskResult(@PathVariable UUID taskId) {
         return taskService.getTaskResultById(taskId);
