@@ -71,7 +71,7 @@ public class TaskServiceImpl implements TaskService {
     private Task findTaskOrNotFound(UUID id) {
         Task task = taskRepository.getTaskById(id);
         if (task == null) {
-            throw new NotFoundException(String.format("Task с id=%s не найден!", id.toString()));
+            throw new NotFoundException(String.format("Task id=%s not found!", id.toString()));
         }
         return task;
     }
