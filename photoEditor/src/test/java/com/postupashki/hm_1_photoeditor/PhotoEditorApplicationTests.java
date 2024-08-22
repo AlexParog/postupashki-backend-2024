@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class PhotoEditorApplicationTests {
 
-    private final String RANDOM_UUID = "hi, i`m wrong uuid";
+    private final String RANDOM_UUID = "hi-im-wrong-uuid";
 
     @Autowired
     MockMvc mockMvc;
@@ -56,7 +56,7 @@ class PhotoEditorApplicationTests {
         Task task = taskRepository.getTaskById(UUID.fromString(taskId));
         assertNotNull(task, "Task was not found in repository after creation");
 
-        MvcResult mvcResultGetTaskStatus = mockMvc.perform(get("/status/{taskId}", taskId))
+        MvcResult mvcResultGetTaskStatus = mockMvc.perform(get("/task/status/{taskId}", taskId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.taskStatusEnum").exists())
                 .andDo(print())
@@ -66,19 +66,19 @@ class PhotoEditorApplicationTests {
         assertEquals(task.getTaskStatus().toString(), taskStatus);
 
         // проверить что result существует и статус в результате READY
-        MvcResult mvcResultGetResult = mockMvc.perform(get("/result/{taskId}", taskId))
+        MvcResult mvcResultGetResult = mockMvc.perform(get("/task/result/{taskId}", taskId))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.taskStatusEnum").value("READY"))
+                .andExpect(jsonPath("$.taskStatus").value("IN_PROGRESS"))
                 .andReturn();
 
-        final String resultStatus = JsonPath.read(mvcResultGetResult.getResponse().getContentAsString(), "$.taskStatusEnum");
+        final String resultStatus = JsonPath.read(mvcResultGetResult.getResponse().getContentAsString(), "$.taskStatus");
         assertEquals(task.getTaskStatus().toString(), resultStatus);
     }
 
     @Test
     public void testFindTaskStatusWithRandomUUID() throws Exception {
         mockMvc.perform(
-                        get("/status/").param(RANDOM_UUID))
+                        get("/status/", RANDOM_UUID))
                 .andExpect(status().isNotFound())
                 .andExpect(mvcResult -> Objects.requireNonNull(mvcResult.getResolvedException())
                         .getClass()
@@ -88,7 +88,7 @@ class PhotoEditorApplicationTests {
     @Test
     public void testFindTaskResultWithRandomUUID() throws Exception {
         mockMvc.perform(
-                        get("/result/").param(RANDOM_UUID))
+                        get("/result/", RANDOM_UUID))
                 .andExpect(status().isNotFound())
                 .andExpect(mvcResult -> Objects.requireNonNull(mvcResult.getResolvedException())
                         .getClass()
