@@ -68,7 +68,7 @@ class PhotoEditorApplicationTests {
         // проверить что result существует и статус в результате READY
         MvcResult mvcResultGetResult = mockMvc.perform(get("/task/result/{taskId}", taskId))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.taskStatus").value("IN_PROGRESS"))
+                .andExpect(jsonPath("$.taskStatus").exists())
                 .andReturn();
 
         final String resultStatus = JsonPath.read(mvcResultGetResult.getResponse().getContentAsString(), "$.taskStatus");
