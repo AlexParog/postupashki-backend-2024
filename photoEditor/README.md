@@ -63,7 +63,7 @@ mvn clean package
 ```
 3. Запустите приложение:
 ```text
-java -jar target/your-app-name.jar
+java -jar target/hm_1_photoEditor-0.0.1-SNAPSHOT.jar
 ```
 #### Запуск в Docker
 1. Соберите Docker образ:
