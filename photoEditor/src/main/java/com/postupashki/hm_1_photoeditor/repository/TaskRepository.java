@@ -7,7 +7,7 @@ import java.util.UUID;
 /**
  * Интерфейс для работы с задачами в in-memory хранилище.
  */
-public interface InMemoryTaskRepository {
+public interface TaskRepository {
     /**
      * Возвращает задачу по идентификатору.
      *

@@ -3,7 +3,7 @@ package com.postupashki.hm_1_photoeditor;
 import com.jayway.jsonpath.JsonPath;
 import com.postupashki.hm_1_photoeditor.entity.Task;
 import com.postupashki.hm_1_photoeditor.exception.NotFoundException;
-import com.postupashki.hm_1_photoeditor.repository.InMemoryTaskRepository;
+import com.postupashki.hm_1_photoeditor.repository.TaskRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -45,7 +45,7 @@ class PhotoEditorApplicationTests {
      * Репозиторий задач, используемый для проверки состояния задач в тестах.
      */
     @Autowired
-    InMemoryTaskRepository taskRepository;
+    TaskRepository taskRepository;
 
     /**
      * Тест проверяет успешное создание задачи через API.

@@ -2,7 +2,7 @@ package com.postupashki.hm_1_photoeditor.repository.impl;
 
 import com.postupashki.hm_1_photoeditor.entity.Task;
 import com.postupashki.hm_1_photoeditor.entity.TaskStatusEnum;
-import com.postupashki.hm_1_photoeditor.repository.InMemoryTaskRepository;
+import com.postupashki.hm_1_photoeditor.repository.TaskRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Map;
@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Реализация интерфейса InMemoryTaskRepository, использующая ConcurrentHashMap для хранения задач.
  */
 @Repository
-public class InMemoryTaskRepositoryImpl implements InMemoryTaskRepository {
+public class TaskRepositoryImpl implements TaskRepository {
 
     /**
      * Внутреннее хранилище задач, использующее ConcurrentHashMap для потокобезопасности.

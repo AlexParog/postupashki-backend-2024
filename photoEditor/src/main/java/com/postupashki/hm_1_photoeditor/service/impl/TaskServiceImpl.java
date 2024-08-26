@@ -7,7 +7,7 @@ import com.postupashki.hm_1_photoeditor.entity.Task;
 import com.postupashki.hm_1_photoeditor.entity.TaskStatusEnum;
 import com.postupashki.hm_1_photoeditor.exception.NotFoundException;
 import com.postupashki.hm_1_photoeditor.mapper.TaskMapper;
-import com.postupashki.hm_1_photoeditor.repository.InMemoryTaskRepository;
+import com.postupashki.hm_1_photoeditor.repository.TaskRepository;
 import com.postupashki.hm_1_photoeditor.service.TaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ public class TaskServiceImpl implements TaskService {
     /**
      * Репозиторий для работы с задачами
      */
-    private final InMemoryTaskRepository taskRepository;
+    private final TaskRepository taskRepository;
     /**
      * Маппер сущности Task
      */
@@ -42,7 +42,7 @@ public class TaskServiceImpl implements TaskService {
      * @param taskRepository репозиторий для хранения задач.
      * @param taskMapper     маппер для преобразования задач.
      */
-    public TaskServiceImpl(InMemoryTaskRepository taskRepository, TaskMapper taskMapper) {
+    public TaskServiceImpl(TaskRepository taskRepository, TaskMapper taskMapper) {
         this.taskRepository = taskRepository;
         this.taskMapper = taskMapper;
     }
